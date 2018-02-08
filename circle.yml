@@ -1,0 +1,12 @@
+machine:
+  node:
+    version: 8
+
+  environment:
+    NODE_ENV: development
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - bash ./deployed.sh

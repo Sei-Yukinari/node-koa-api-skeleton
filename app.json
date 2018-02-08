@@ -1,0 +1,14 @@
+{
+  "name": "node-koa-api-skeleton",
+  "description": "koaのスケルトンアプリケーション",
+  "keywords": [
+    "node",
+    "koa",
+    "api"
+  ],
+  "repository": "",
+  "env": {
+  },
+  "addons": [
+  ]
+}

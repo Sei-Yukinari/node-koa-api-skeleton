@@ -1,0 +1,54 @@
+version: '2'
+services:
+#  db:
+#    restart: always
+#    image: mysql
+#    container_name: test_db
+#    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+#    environment:
+#      MYSQL_DATABASE: test
+#      MYSQL_ROOT_PASSWORD: password
+#    ports:
+#      - "3306:3306"
+#
+#  redis:
+#    restart: always
+#    image: redis:alpine
+#    container_name: redis
+#
+#  mongo:
+#    restart: always
+#    image: mongo
+#    container_name: mongo
+
+  postgres-data:
+    image: busybox
+    volumes:
+        - /var/lib/postgresql/data
+    container_name: postgres-datastore
+
+  postgresql:
+    image: postgres
+    environment:
+      POSTGRES_USER: hoge
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    container_name: postgres-db
+    volumes_from:
+        - postgres-data
+
+  api_server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: api_server
+    ports:
+      - "3032:3032"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    links:
+      - postgresql
+    environment:
+      NODE_ENV: development
